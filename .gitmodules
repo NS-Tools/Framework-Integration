@@ -1,0 +1,4 @@
+[submodule "src/Framework"]
+	path = src/Framework
+	url = https://github.com/NS-Tools/Framework.git
+	branch = master

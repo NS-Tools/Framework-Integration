@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "module": "amd",
+    "target": "es2019",
+    "esModuleInterop": false,
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "newLine": "LF",
+    "experimentalDecorators": true,
+    "noImplicitOverride": true,
+    "baseUrl": ".",
+    "outDir": "dist/FileCabinet/SuiteScripts/",
+    "rootDir": "src",
+    "paths": {
+      "N": [
+        "node_modules/@hitc/netsuite-types/N"
+      ],
+      "N/*": [
+        "node_modules/@hitc/netsuite-types/N/*"
+      ]
+    },
+    "incremental": false
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
