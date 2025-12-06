@@ -15,10 +15,10 @@ fi
 
 cp -R src/Framework/thirdparty/core/* dist/FileCabinet/SuiteScripts/${PROJECT_NAME}/Framework/thirdparty/core/
 
-if [ -d src/thirdparty/optional ]; then
-    if [ ! -d dist/FileCabinet/SuiteScripts/${PROJECT_NAME}/Framework/thirdparty/optional ]; then
-        mkdir -p dist/FileCabinet/SuiteScripts/${PROJECT_NAME}/Framework/thirdparty/optional/
+if [ -d src/Framework/thirdparty/optional ]; then
+    if [ ! -d "dist/FileCabinet/SuiteScripts/${PROJECT_NAME}/Framework/thirdparty/optional" ]; then
+        mkdir "dist/FileCabinet/SuiteScripts/${PROJECT_NAME}/Framework/thirdparty/optional"
     fi
 
-    cp -R src/Framework/thirdparty/optional/*.js dist/FileCabinet/SuiteScripts/${MANIFEST_PROJECT_NAME}/Framework/thirdparty/optional/
+    cp -R src/Framework/thirdparty/optional/*.js dist/FileCabinet/SuiteScripts/${PROJECT_NAME}/Framework/thirdparty/optional/
 fi
