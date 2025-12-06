@@ -137,9 +137,20 @@ echo "Successfully built deploy.xml"
 # Build src directory
 echo "Building src directory"
 
-git rm src/Framework
+echo "Removing existing Framework installation"
+if [ -d src/Framework/thirdparty/optional ]; then
+    echo "Removing existing optional third party submodule"
+    git submodule deinit -f src/Framework/thirdparty/optional
+    git rm -f src/Framework/thirdparty/optional
+    rm -rf .git/modules/src/Framework/thirdparty/optional
+fi
+
+git submodule deinit -f src/Framework
+git rm -f src/Framework
+rm -rf .git/modules/src/Framework
 rm -rf ./src/*
 
+echo "Adding Framework submodule"
 git submodule add --depth 1 -b $FRAMEWORK_BRANCH $FRAMEWORK_REPOSITORY src/Framework
 
 if [ $INCLUDE_OPTIONAL_THIRD_PARTY ]; then
