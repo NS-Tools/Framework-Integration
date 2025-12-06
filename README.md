@@ -2,6 +2,20 @@
 
 NS Tools Integration is the integration project. This repository also doubles as a batteries included starter template for new projects. Take the guess work out of starting new projects!
 
+# Integration Testing
+
+## Running Integration Tests
+To run the integration tests perform the following
+1. Run `build-environment.sh` using the provided .env file
+2. Setup your suitecloud account `npx suitecloud account:setup`
+3. Run `npm run build:deploy`
+4. Run the Suitelet `NS Tools Integration Tests` (you can find the URL on the deployment page)
+
+## Reporting Issues
+Please report issues with the integration tests to the Framework repository https://github.com/NS-Tools/Framework
+
+If possible please setup NST_SL_Integration.ts's $DEBUG_FOLDER_ID with the internal id of a file cabinet folder, and upload the log file generated. 
+
 # Template
 
 ## Setup
@@ -21,6 +35,7 @@ To use this project as your templatedo the following:
 - INCLUDE_TEMPLATES: Boolean value - When set set to true a dist/Templates/E-mail Templates and dist/Templates/Marketing Tempaltes will be created
 - INCLUDE_WEB_SITE_HOSTING_FILES: Boolean value - When set set to true a dist/Web Site Hosting Files/Live Hosting Files and dist/Web Site Hosting Files/Staging Hosting Files/ will be created
 - INCLUDE_OPTIONAL_THIRD_PARTY: Boolean value - When set to true the git submodule with the optional thirdparty libraries will be added in src/Framework/thirdparty/optional
+- KEEP_SRC_FILES: When set to true the build script will skip over deleting src files.
 
 ### Optional variables
 - FRAMEWORK_REPOSITORY: Declare this variable with a git url if you wish to override the repository for Framework

@@ -11,6 +11,8 @@ INCLUDE_TRANSLATIONS=true
 INCLUDE_TEMPLATES=true
 INCLUDE_WEB_SITE_HOSTING_FILES=true
 INCLUDE_OPTIONAL_THIRD_PARTY=false
+KEEP_SRC_FILES=false
+
 OPTIONAL_THIRD_PARTY_BRANCH="production"
 CURRENT_DIR=$(pwd)
 
@@ -28,11 +30,11 @@ if [ -z "$OPTIONAL_THIRD_PARTY_BRANCH" ]; then
 fi
 
 # Convert project name to lowercase, and replace spaces with hyphens
-MANIFEST_PROJECT_NAME=${$PROJECT_NAME// /-} | tr '[:upper:]' '[:lower:]'
+MANIFEST_PROJECT_NAME="$(echo "${PROJECT_NAME}" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')"
 
 echo "Building environment with the following settings:"
 echo "PROJECT_NAME: $PROJECT_NAME"
-
+echo "MANIFEST_PROJECT_NAME: $MANIFEST_PROJECT_NAME"
 echo "FRAMEWORK_BRANCH: $FRAMEWORK_BRANCH"
 echo "INCLUDE_ACCOUNT_CONFIGURATION: $INCLUDE_ACCOUNT_CONFIGURATION"
 echo "INCLUDE_FILES: $INCLUDE_FILES"
@@ -85,10 +87,10 @@ fi
 
 if [ $INCLUDE_TEMPLATES ]; then
     mkdir -p "dist/Templates/Marketing Templates"
-    touch "dist/Templates/Marketing Templates" .gitkeep
+    touch "dist/Templates/Marketing Templates/.gitkeep"
 
     mkdir -p "dist/Templates/E-mail Templates"
-    touch "dist/Templates/E-mail Templates" .gitkeep
+    touch "dist/Templates/E-mail Templates/.gitkeep"
 fi
 
 if [ $INCLUDE_WEB_SITE_HOSTING_FILES ]; then
@@ -102,7 +104,7 @@ fi
 
 echo "Building manifest.xml"
 
-echo "<manifest projecttype="ACCOUNTCUSTOMIZATION">
+echo "<manifest projecttype=\"ACCOUNTCUSTOMIZATION\">
   <projectname>${MANIFEST_PROJECT_NAME}</projectname>
   <frameworkversion>1.0</frameworkversion>
 </manifest>" > dist/manifest.xml
@@ -138,35 +140,49 @@ echo "Successfully built deploy.xml"
 # Build src directory
 echo "Building src directory"
 
-rm -rf src/Client \
-       src/UserEvent \
-       src/Scheduled \
-       src/MapReduce \
-       src/Suitelet \
-       src/Restlet
+if [ $KEEP_SRC_FILES ]; then
+    echo "Keeping existing src files."
+else
+    echo "Removing existing src files."
+
+    rm -rf src/Client \
+        src/UserEvent \
+        src/Scheduled \
+        src/MapReduce \
+        src/Suitelet \
+        src/Restlet
+fi
 
 cd src/Framework
 git checkout $FRAMEWORK_BRANCH
 cd ..
 git add Framework
 cd $CURRENT_DIR
+git submodule update --init --recursive
 
-
-if [ ! -d src/Framework/thirdparty/optional ]; then
+if [ -d src/Framework/thirdparty/optional ]; then
     cd $CURRENT_DIR
 
     if [ ! $INCLUDE_OPTIONAL_THIRD_PARTY ]; then
-        echo "Cloning optional third party repository"
+        echo "Removing optional third party repository"
         git submodule deinit -f src/Framework/thirdparty/optional
         git rm -f src/Framework/thirdparty/optional
     else
+        echo "Updating thirdparty optional repository"
         cd src/Framework/thirdparty/optional
         git checkout $OPTIONAL_THIRD_PARTY_BRANCH
         cd ..
         git add optional
         cd $CURRENT_DIR
     fi
+else
+    # Optional tp directory doesn't exist
+    echo "Adding optional third party repository"
+    cd src/Framework/thirdparty
+    git submodule add -b $OPTIONAL_THIRD_PARTY_BRANCH $OPTIONAL_THIRD_PARTY_REPOSITORY optional
+    cd $CURRENT_DIR
 fi
+git submodule update --init --recursive
 
 # Make directories
 echo "Making base directories in src"

@@ -9,7 +9,7 @@
     "experimentalDecorators": true,
     "noImplicitOverride": true,
     "baseUrl": ".",
-    "outDir": "dist/FileCabinet/SuiteScripts/",
+    "outDir": "dist/FileCabinet/SuiteScripts/ns-tools-integration",
     "rootDir": "src",
     "paths": {
       "N": [
