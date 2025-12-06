@@ -40,5 +40,5 @@ Thumbs.db
 project.json
 
 # SuiteCloud
-./project.json
-./dist/FileCabinet/SuiteScripts
+/project.json
+/dist/FileCabinet/SuiteScripts
