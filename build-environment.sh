@@ -12,6 +12,7 @@ INCLUDE_TEMPLATES=true
 INCLUDE_WEB_SITE_HOSTING_FILES=true
 INCLUDE_OPTIONAL_THIRD_PARTY=false
 OPTIONAL_THIRD_PARTY_BRANCH="production"
+CURRENT_DIR=$(pwd)
 
 # Load environment variables from .env file
 if [ -f .env ]; then
@@ -137,25 +138,34 @@ echo "Successfully built deploy.xml"
 # Build src directory
 echo "Building src directory"
 
-echo "Removing existing Framework installation"
-if [ -d src/Framework/thirdparty/optional ]; then
-    echo "Removing existing optional third party submodule"
-    git submodule deinit -f src/Framework/thirdparty/optional
-    git rm -f src/Framework/thirdparty/optional
-    rm -rf .git/modules/src/Framework/thirdparty/optional
-fi
+rm -rf src/Client \
+       src/UserEvent \
+       src/Scheduled \
+       src/MapReduce \
+       src/Suitelet \
+       src/Restlet
 
-git submodule deinit -f src/Framework
-git rm -f src/Framework
-rm -rf .git/modules/src/Framework
-rm -rf ./src/*
+cd src/Framework
+git checkout $FRAMEWORK_BRANCH
+cd ..
+git add Framework
+cd $CURRENT_DIR
 
-echo "Adding Framework submodule"
-git submodule add --depth 1 -b $FRAMEWORK_BRANCH $FRAMEWORK_REPOSITORY src/Framework
 
-if [ $INCLUDE_OPTIONAL_THIRD_PARTY ]; then
-    echo "Including optional third party repository"
-    git submodule add --depth 1 -b $OPTIONAL_THIRD_PARTY_BRANCH $OPTIONAL_THIRD_PARTY_REPOSITORY src/thirdparty/optional
+if [ ! -d src/Framework/thirdparty/optional ]; then
+    cd $CURRENT_DIR
+
+    if [ ! $INCLUDE_OPTIONAL_THIRD_PARTY ]; then
+        echo "Cloning optional third party repository"
+        git submodule deinit -f src/Framework/thirdparty/optional
+        git rm -f src/Framework/thirdparty/optional
+    else
+        cd src/Framework/thirdparty/optional
+        git checkout $OPTIONAL_THIRD_PARTY_BRANCH
+        cd ..
+        git add optional
+        cd $CURRENT_DIR
+    fi
 fi
 
 # Make directories
