@@ -1,20 +1,24 @@
 tsc -b
 
+if [ -f .env ]; then
+    source .env
+fi
+
 if [ -f dist/FileCabinet/tsconfig.tsbuildinfo ]; then
     rm dist/FileCabinet/tsconfig.tsbuildinfo
 fi
 
 # Copy thirdparty assets
-if [ ! -d dist/FileCabinet/SuiteScripts/thirdparty/core/ ]; then
-    mkdir -p dist/FileCabinet/SuiteScripts/thirdparty/core/
+if [ ! -d dist/FileCabinet/SuiteScripts/${PROJECT_NAME}/Framework/thirdparty/core/ ]; then
+    mkdir -p dist/FileCabinet/SuiteScripts/${PROJECT_NAME}/Framework/thirdparty/core/
 fi
 
-cp -R src/thirdparty/core/* dist/FileCabinet/SuiteScripts/thirdparty/core/
+cp -R src/Framework/thirdparty/core/* dist/FileCabinet/SuiteScripts/${PROJECT_NAME}/Framework/thirdparty/core/
 
 if [ -d src/thirdparty/optional ]; then
-    if [ ! -d dist/FileCabinet/SuiteScripts/thirdparty/optional ]; then
-        mkdir -p dist/FileCabinet/SuiteScripts/thirdparty/optional/
+    if [ ! -d dist/FileCabinet/SuiteScripts/${PROJECT_NAME}/Framework/thirdparty/optional ]; then
+        mkdir -p dist/FileCabinet/SuiteScripts/${PROJECT_NAME}/Framework/thirdparty/optional/
     fi
 
-    cp -R src/thirdparty/optional/*.js dist/FileCabinet/SuiteScripts/thirdparty/optional/
+    cp -R src/Framework/thirdparty/optional/*.js dist/FileCabinet/SuiteScripts/${MANIFEST_PROJECT_NAME}/Framework/thirdparty/optional/
 fi
