@@ -16,6 +16,7 @@
         "lint:fix": "npx @biomejs/biome check --write",
         "test": "jest",
         "build": "./build.sh",
+        "build:deploy": "npm run build && npx suitecloud project:deploy --validate",
         "thirdparty:setup": "git submodule add --force https://github.com/NS-Tools/ThirdParty.git thirdparty/optional",
         "thirdparty:update": "git submodule update --remote --merge --recursive",
         "update": "git pull origin && npm run update:framework && npm install",
