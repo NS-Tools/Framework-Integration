@@ -1,9 +1,14 @@
-/*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+/**
+ * Suitelet to run integration tests for the NS Tools Framework
+ * 
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ * 
+ * @NApiVersion 2.1
+ * @NScriptType Suitelet
+ */
 
 import { search } from 'N';
 import type { EntryPoints } from 'N/types';

@@ -8,6 +8,10 @@ if [ -f dist/FileCabinet/tsconfig.tsbuildinfo ]; then
     rm dist/FileCabinet/tsconfig.tsbuildinfo
 fi
 
+if [ -f dist/FileCabinet/SuiteScripts/tsconfig.tsbuildinfo ]; then
+    rm dist/FileCabinet/SuiteScripts/tsconfig.tsbuildinfo
+fi
+
 # Copy thirdparty assets
 if [ ! -d dist/FileCabinet/SuiteScripts/${PROJECT_NAME}/Framework/thirdparty/core/ ]; then
     mkdir -p dist/FileCabinet/SuiteScripts/${PROJECT_NAME}/Framework/thirdparty/core/

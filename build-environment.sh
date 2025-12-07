@@ -47,12 +47,14 @@ echo "INCLUDE_OPTIONAL_THIRD_PARTY: $INCLUDE_OPTIONAL_THIRD_PARTY"
 # Update Typescript out directory
 
 # Clearing dist folder
-if [ -d dist ]; then
-    echo "Clearing dist folder"
-    rm -rf dist/* dist/.* 2> /dev/null || true
-else
-    echo "Creating dist folder."
-    mkdir dist
+if [ ! $KEEP_SRC_FILES ]; then
+    if [ -d dist ]; then
+        echo "Clearing dist folder"
+        rm -rf dist/* dist/.* 2> /dev/null || true
+    else
+        echo "Creating dist folder."
+        mkdir dist
+    fi
 fi
 
 echo "Updating TypeScript output directory..."

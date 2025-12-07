@@ -1,0 +1,25 @@
+<suitelet scriptid="customscript_nst_mr_auto_search_int">
+  <description>Suitelet as a map reduce testing script using search to object.</description>
+  <isinactive>F</isinactive>
+  <name>NST MR Auto Search Integration</name>
+  <notifyadmins>F</notifyadmins>
+  <notifyemails></notifyemails>
+  <notifyowner>F</notifyowner>
+  <notifyuser>F</notifyuser>
+  <scriptfile>[/SuiteScripts/ns-tools-integration/MapReduce/NST_MR_Auto_Search_Integration.js]</scriptfile>
+  <scriptdeployments>
+    <scriptdeployment scriptid="customdeploy_nst_mr_as_dep_1">
+      <allemployees>F</allemployees>
+      <allpartners>F</allpartners>
+      <allroles>T</allroles>
+      <audslctrole></audslctrole>
+      <eventtype></eventtype>
+      <isdeployed>T</isdeployed>
+      <isonline>F</isonline>
+      <loglevel>DEBUG</loglevel>
+      <runasrole></runasrole>
+      <status>TESTING</status>
+      <title>NST MR Auto Search Integration Deploy 1</title>
+    </scriptdeployment>
+  </scriptdeployments>
+</suitelet>
