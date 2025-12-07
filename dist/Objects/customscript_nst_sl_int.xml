@@ -1,0 +1,25 @@
+<suitelet scriptid="customscript_nst_sl_int">
+  <description>Suitelet testing script for various functionality tests.</description>
+  <isinactive>F</isinactive>
+  <name>NST Suitelet Integration</name>
+  <notifyadmins>F</notifyadmins>
+  <notifyemails></notifyemails>
+  <notifyowner>F</notifyowner>
+  <notifyuser>F</notifyuser>
+  <scriptfile>[/SuiteScripts/ns-tools-integration/Suitelet/NST_SL_Integration.js]</scriptfile>
+  <scriptdeployments>
+    <scriptdeployment scriptid="customdeploy_nst_sl_int_dep_1">
+      <allemployees>F</allemployees>
+      <allpartners>F</allpartners>
+      <allroles>T</allroles>
+      <audslctrole></audslctrole>
+      <eventtype></eventtype>
+      <isdeployed>T</isdeployed>
+      <isonline>F</isonline>
+      <loglevel>DEBUG</loglevel>
+      <runasrole></runasrole>
+      <status>TESTING</status>
+      <title>NST SL Integration Deploy 1</title>
+    </scriptdeployment>
+  </scriptdeployments>
+</suitelet>
