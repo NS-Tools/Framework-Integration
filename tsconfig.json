@@ -12,8 +12,12 @@
     "outDir": "dist/FileCabinet/SuiteScripts/ns-tools-integration",
     "rootDir": "src",
     "paths": {
-      "N": [ "node_modules/@hitc/netsuite-types/N" ],
-      "N/*": [ "node_modules/@hitc/netsuite-types/N/*" ]
+      "N": [
+        "node_modules/@hitc/netsuite-types/N"
+      ],
+      "N/*": [
+        "node_modules/@hitc/netsuite-types/N/*"
+      ]
     },
     "incremental": false
   },

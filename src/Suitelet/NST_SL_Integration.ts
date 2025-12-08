@@ -21,7 +21,6 @@ import { InventoryItemBase } from '../Framework/DataAccess/BaseRecords/Inventory
 import { InvoiceBase } from '../Framework/DataAccess/BaseRecords/InvoiceBase';
 import { ItemFulfillmentBase } from '../Framework/DataAccess/BaseRecords/ItemFulfillmentBase';
 import { SalesOrderBase } from '../Framework/DataAccess/BaseRecords/SalesOrderBase';
-import { FieldType } from '../Framework/DataAccess/FieldType';
 import * as Logger from '../Framework/Logger';
 import { LazyQuery, nsQueryResult2obj } from '../Framework/query';
 import { getColumns } from '../Framework/queryAutoMapper';
@@ -30,6 +29,7 @@ import * as BigNumber from '../Framework/thirdparty/optional/bignumber';
 import { Seq } from '../Framework/thirdparty/optional/immutable';
 import * as lodash from '../Framework/thirdparty/optional/lodash';
 import * as moment from '../Framework/thirdparty/optional/moment';
+import { CustomerWithAlias } from '../Records/CustomerWithAlias';
 
 export = { onRequest: onRequest };
 
@@ -61,11 +61,13 @@ namespace NST_SL_Integration {
 
 		for (const testName in tests) {
 			log.debug('Running Test', `Starting test: ${testName}`);
+
 			try {
 				const result = tests[testName]();
 				results.push(`Test ${testName} Passed: ${JSON.stringify(result)}`);
 			} catch (e) {
 				log.error(`Test ${testName} Failed`, (e as Error).message);
+				results.push(`Test ${testName} Failed ${(e as Error).message}`);
 			}
 		}
 
@@ -220,11 +222,6 @@ namespace NST_SL_Integration {
 	}
 
 	function testAliasDecorator() {
-		class CustomerWithAlias extends CustomerBase {
-			@FieldType.alias('companyname')
-			public my_alias: string;
-		}
-
 		const customer = new CustomerWithAlias(CONSTANTS.CUSTOMER_ID);
 		log.debug('Alias Field Value', `Company name: ${customer.companyname} Value of my_alias: ${customer.my_alias}`);
 

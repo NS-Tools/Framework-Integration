@@ -151,29 +151,29 @@ if [ $KEEP_SRC_FILES ]; then
 else
     echo "Removing existing src files."
 
-    rm -rf src/Client \
+    rm -rf src/Client \ 
+        src/Records \
         src/UserEvent \
         src/Scheduled \
         src/MapReduce \
         src/Suitelet \
         src/Restlet
+
+    # Make directories
+    echo "Making base directories in src"
+    mkdir -p src/{Client,UserEvent,Scheduled,MapReduce,Suitelet,Restlet,Records}
+    touch src/Client/.gitkeep
+    touch src/UserEvent/.gitkeep
+    touch src/Scheduled/.gitkeep
+    touch src/MapReduce/.gitkeep
+    touch src/Suitelet/.gitkeep
+    touch src/Restlet/.gitkeep
+    touch src/Records/.gitkeep
 fi
 
 cd src/Framework
 git checkout $FRAMEWORK_BRANCH
-cd ..
-git add Framework
 cd $CURRENT_DIR
 git submodule update --init --recursive
-
-# Make directories
-echo "Making base directories in src"
-mkdir -p src/{Client,UserEvent,Scheduled,MapReduce,Suitelet,Restlet}
-touch src/Client/.gitkeep
-touch src/UserEvent/.gitkeep
-touch src/Scheduled/.gitkeep
-touch src/MapReduce/.gitkeep
-touch src/Suitelet/.gitkeep
-touch src/Restlet/.gitkeep
 
 echo "Environment build process completed."

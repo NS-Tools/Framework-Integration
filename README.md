@@ -90,14 +90,16 @@ The project structure is as follows.
 - - Scheduled: Place all of your scheduled scripts here
 - - Suitelet: Place all of your suitelets here
 - - Restlet: Place all of your restlets here
+- - Records: Place all of your Framework/DataAccess records in here.
 - .env: Environmental variables for your project. Make sure you update this.
 - .gitignore: Update this file with any file that you would like ignored.
 - .gitmodules: Git manages this file for track submodules
+- biome.json: Biome linting configuration
 - build-environment.sh: This file rolls the integration folder into a new project
 - build-environment.sh: This file builds the project environment.
 - build.sh: This file builds the project
 - jest.config.js: Jest configuration
-- package.json: NodeJS NPM configuration
+- package.json: Project configuration
 - README.md: Project readme file
 - suitecloud.config.js: SuiteCloud project configuration, runs jest tests before deployment.
 - tsconfig.json: TypeScript configuration preconfigured for outputting Netsuite/SuiteScript compatible scripts.
