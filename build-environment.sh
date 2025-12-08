@@ -113,16 +113,16 @@ echo "<manifest projecttype=\"ACCOUNTCUSTOMIZATION\">
 echo "Successfully built manifest.xml"
 
 echo "Building deploy.xml"
-echo "<deploy>
-    <files>
-        <path>~/FileCabinet/*</path>
-    </files>" > dist/deploy.xml
-
+echo "<deploy>" >> dist/deploy.xml
 if [ $INCLUDE_ACCOUNT_CONFIGURATION ]; then
     echo "    <configuration>
         <path>~/AccountConfiguration/*</path>
     </configuration>" >> dist/deploy.xml
 fi
+
+echo "    <files>
+        <path>~/FileCabinet/*</path>
+    </files>" > dist/deploy.xml
 
 if [ $INCLUDE_OBJECTS ]; then
     echo "    <objects>
@@ -131,9 +131,9 @@ if [ $INCLUDE_OBJECTS ]; then
 fi
 
 if [ $INCLUDE_TRANSLATIONS ]; then
-    echo "    <translations>
+    echo "    <translationimports>
         <path>~/Translations/*</path>
-    </translations>" >> dist/deploy.xml
+    </translationimports>" >> dist/deploy.xml
 fi
 
 echo "</deploy>" >> dist/deploy.xml

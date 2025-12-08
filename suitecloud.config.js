@@ -6,7 +6,16 @@ module.exports = {
 		"project:deploy": {
 			beforeExecuting: async args => {
 				await SuiteCloudJestUnitTestRunner.run({
-				    // Jest configuration options.
+				    testPathIgnorePatterns: [
+						"/node_modules/",
+						"/Framework/",
+						"/dist/"
+					],
+					modulePathIgnorePatterns: [
+						"/node_modules/",
+						"/Framework/",
+						"/dist/"
+					]
 				});
 				return args;
 			},
