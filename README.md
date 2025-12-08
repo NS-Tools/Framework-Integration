@@ -2,11 +2,11 @@
 
 NS Tools Integration is the integration project. This repository also doubles as a batteries included starter template for new projects. Take the guess work out of starting new projects!
 
-# Project Usage
+## Project Usage
 
 To use this repository you must setup your environment for communicating with SuiteCloud as outlined under the account setup steps below.
 
-## SuiteCloud Account Setup
+### SuiteCloud Account Setup
 
 Note: For step five you'll need to know the account id (for Sandbox environments it'll usually be account number_sb1). Auth id is a friendly name given to the authentication, and is not predicated on anything configured within Netsuite.
 
@@ -22,9 +22,9 @@ Note: For step five you'll need to know the account id (for Sandbox environments
         --privatekeypath="cert/private.pem"
     ```
 
-# Integration Testing
+## Integration Testing
 
-## Running Integration Tests
+### Running Integration Tests
 To run the integration tests perform the following
 1. Run `build-environment.sh` using the provided .env file
 2. Update src/CONSTANTS.ts with your desired ids. Do not commit changes to this file.
@@ -38,17 +38,17 @@ Please report issues with the integration tests to the Framework repository http
 
 If possible please setup NST_SL_Integration.ts's $DEBUG_FOLDER_ID with the internal id of a file cabinet folder, and upload the log file generated. 
 
-# Template
+## Template
 
-## Setup
+### Setup
 To use this project as your templatedo the following:
 1. Fork the project
 2. Update .env
 3. Run `build-environment.sh`
 4. (Optional) Update README.md to match your project
 
-## .env configuration
-### Required variables
+### .env configuration
+#### Required variables
 - PROJECT_NAME: Project name that will be used to set the output to dist/FileCabinet/PROJECT_NAME
 - FRAMEWORK_BRANCH: Set this to production unless you are wanting a bleeding edge branch
 - INCLUDE_ACCOUNT_CONFIGURATION: Boolean value - When set to true the deploy.xml will include a configuration node, and dist/AccountConfiguration will be created
@@ -59,12 +59,12 @@ To use this project as your templatedo the following:
 - INCLUDE_OPTIONAL_THIRD_PARTY: Boolean value - When set to true the git submodule with the optional thirdparty libraries will be added in src/Framework/thirdparty/optional
 - KEEP_SRC_FILES: When set to true the build script will skip over deleting src files.
 
-### Optional variables
+#### Optional variables
 - FRAMEWORK_REPOSITORY: Declare this variable with a git url if you wish to override the repository for Framework
 - OPTIONAL_THIRD_PARTY_REPOSITORY: Declare this variable with a git url if you wish to override the repository for the optional third party libraries under src/Framework/thirdparty/optional
 - OPTIONAL_THIRD_PARTY_BRANCH: Defaults to production
 
-# Dev Container
+## Dev Container
 Dev containers are a great way to ensure everyone is using the same base configuration. 
 
 See https://code.visualstudio.com/docs/devcontainers/
