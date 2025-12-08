@@ -13,7 +13,7 @@ import { SalesOrderBase } from '../Framework/DataAccess/BaseRecords/SalesOrderBa
 import { ItemFulfillmentBase } from '../Framework/DataAccess/BaseRecords/ItemFulfillmentBase';
 import { InvoiceBase } from '../Framework/DataAccess/BaseRecords/InvoiceBase';
 import { FieldType } from '../Framework/DataAccess/FieldType';
-import { Logger } from '../Framework/Logger';
+import * as Logger from '../Framework/Logger';
 import * as BigNumber from '../Framework/thirdparty/optional/bignumber';
 import * as lodash from '../Framework/thirdparty/optional/lodash';
 import * as moment from '../Framework/thirdparty/optional/moment';
