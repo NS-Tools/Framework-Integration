@@ -27,10 +27,11 @@ Note: For step five you'll need to know the account id (for Sandbox environments
 ## Running Integration Tests
 To run the integration tests perform the following
 1. Run `build-environment.sh` using the provided .env file
-2. Run `npm run build:deploy`
-3. Run the Suitelet `NS Tools Integration Tests` (you can find the URL on the deployment page)
-4. Run the MapReduce script `NS Tools Auto Search Integration`
-5. Run the MapReduce script `NS Tools Auto Query Integration`
+2. Update src/CONSTANTS.ts with your desired ids. Do not commit changes to this file.
+3. Run `npm run build:deploy`
+4. Run the Suitelet `NS Tools Integration Tests` (you can find the URL on the deployment page)
+5. Run the MapReduce script `NS Tools Auto Search Integration`
+6. Run the MapReduce script `NS Tools Auto Query Integration`
 
 ## Reporting Issues
 Please report issues with the integration tests to the Framework repository https://github.com/NS-Tools/Framework
