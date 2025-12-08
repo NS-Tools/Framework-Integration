@@ -109,6 +109,11 @@ echo "Building manifest.xml"
 echo "<manifest projecttype=\"ACCOUNTCUSTOMIZATION\">
   <projectname>${MANIFEST_PROJECT_NAME}</projectname>
   <frameworkversion>1.0</frameworkversion>
+  <dependencies>
+    <features>
+      <feature required="true">SERVERSIDESCRIPTING</feature>
+    </features>
+  </dependencies>
 </manifest>" > dist/manifest.xml
 echo "Successfully built manifest.xml"
 
