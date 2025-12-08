@@ -1,5 +1,5 @@
 <mapreducescript scriptid="customscript_nst_mr_auto_search_int">
-  <description>Suitelet as a map reduce testing script using search to object.</description>
+  <description>Map reduce testing script using search to object.</description>
   <isinactive>F</isinactive>
   <name>NST MR Auto Search Integration</name>
   <notifyadmins>F</notifyadmins>

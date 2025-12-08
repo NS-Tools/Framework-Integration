@@ -14,14 +14,17 @@
 
 import type { EntryPoints } from 'N/types';
 import { search } from 'N';
+import { LazySearch } from '../Framework/search';
 import * as LogManager from '../Framework/Logger';
 import { nsSearchResult2obj } from '../Framework/search';
 import { CONSTANTS } from '../CONSTANTS';
 
-export const getInputData = NST_MR_Auto_Search_Integration.getInputData;
-export const map = NST_MR_Auto_Search_Integration.map;
-export const reduce = NST_MR_Auto_Search_Integration.reduce;
-export const summarize = NST_MR_Auto_Search_Integration.summarize;
+export = {
+    getInputData: NST_MR_Auto_Search_Integration.getInputData,
+    map: NST_MR_Auto_Search_Integration.map,
+    reduce: NST_MR_Auto_Search_Integration.reduce,
+    summarize: NST_MR_Auto_Search_Integration.summarize,
+};
 
 namespace NST_MR_Auto_Search_Integration {
     const log = LogManager.DefaultLogger;
@@ -43,26 +46,34 @@ namespace NST_MR_Auto_Search_Integration {
     }
 
     export function getInputData(context: EntryPoints.MapReduce.getInputDataContext) {
-        return search.create({
-            type: search.Type.CUSTOMER,
-            filters: [
-                ['internalid', 'is', CONSTANTS.CUSTOMER_ID]
-            ],
-            columns: [
-                'internalid',
-                'companyname',
-                'email',
-                'phone',
-                'datecreated',
-                'lastmodifieddate'
-            ]
-        });
+        log.debug('Getting Input Data');
+        const results = [];
+        const mySearch = LazySearch.from(
+            search.create({
+                type: search.Type.CUSTOMER,
+                filters: [
+                    ['internalid', 'is', CONSTANTS.CUSTOMER_ID]
+                ],
+                columns: [
+                    'internalid',
+                    'companyname',
+                    'email',
+                    'phone',
+                    'datecreated',
+                    'lastmodifieddate'
+                ]
+            })
+        );
+    
+        for (const result of mySearch) {
+            results.push(nsSearchResult2obj<SearchResult>()(result));
+        }
+
+        return results;
     }
 
     export function map(context: EntryPoints.MapReduce.mapContext) {
-        const result = nsSearchResult2obj<SearchResult>(JSON.parse(context.value));
-
-        log.debug('Mapped Result', result);
+        log.debug('Map Context Value', context.value);
     }
 
     export function reduce(context: EntryPoints.MapReduce.reduceContext) {}

@@ -42,3 +42,4 @@ project.json
 # SuiteCloud
 /project.json
 /dist/FileCabinet/SuiteScripts
+/cert
