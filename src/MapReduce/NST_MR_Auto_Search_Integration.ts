@@ -1,31 +1,38 @@
 /**
+ * @NApiVersion 2.1
+ * @NScriptType MapReduceScript
+ */
+
+/**
  * Suitelet to run integration tests for the NS Tools Framework
  * 
  * Copyright 2016-2025 Explore Consulting
  * Copyright 2025-Present NS Tools Team
  *
  * See LICENSE file for additional information.
- * 
- * @NApiVersion 2.1
- * @NScriptType Suitelet
  */
 
 import type { EntryPoints } from 'N/types';
 import { search } from 'N';
 import * as LogManager from '../Framework/Logger';
 import { nsSearchResult2obj } from '../Framework/search';
-import { CONSTANTS } from 'src/CONSTANTS';
+import { CONSTANTS } from '../CONSTANTS';
 
-const log = LogManager.DefaultLogger;
-LogManager.autoLogMethodEntryExit(
-    { target: NST_MR_Auto_Search_Integration, method: /\w+/ },
-    {
-        withProfiling: true,
-        logLevel: LogManager.logLevel.debug
-    }
-)
+export const getInputData = NST_MR_Auto_Search_Integration.getInputData;
+export const map = NST_MR_Auto_Search_Integration.map;
+export const reduce = NST_MR_Auto_Search_Integration.reduce;
+export const summarize = NST_MR_Auto_Search_Integration.summarize;
 
 namespace NST_MR_Auto_Search_Integration {
+    const log = LogManager.DefaultLogger;
+    LogManager.autoLogMethodEntryExit(
+        { target: NST_MR_Auto_Search_Integration, method: /\w+/ },
+        {
+            withProfiling: true,
+            logLevel: LogManager.logLevel.debug
+        }
+    );
+
     interface SearchResult {
         id: number;
         companyname: string;
@@ -70,10 +77,3 @@ namespace NST_MR_Auto_Search_Integration {
         });
     }
 }
-
-export = {
-    getInputData: NST_MR_Auto_Search_Integration.getInputData,
-    map: NST_MR_Auto_Search_Integration.map,
-    reduce: NST_MR_Auto_Search_Integration.reduce,
-    summarize: NST_MR_Auto_Search_Integration.summarize
-};

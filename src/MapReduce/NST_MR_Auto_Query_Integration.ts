@@ -1,31 +1,38 @@
 /**
+ * @NApiVersion 2.1
+ * @NScriptType MapReduceScript
+ */
+
+/**
  * Suitelet to run integration tests for the NS Tools Framework
  * 
  * Copyright 2016-2025 Explore Consulting
  * Copyright 2025-Present NS Tools Team
  *
  * See LICENSE file for additional information.
- * 
- * @NApiVersion 2.1
- * @NScriptType Suitelet
  */
 
 import type { EntryPoints } from 'N/types';
 import { query } from 'N';
 import * as LogManager from '../Framework/Logger';
 import { getColumns, mapQueryMRResults } from '../Framework/queryAutoMapper';
-import { CONSTANTS } from 'src/CONSTANTS';
+import { CONSTANTS } from '../CONSTANTS';
 
-const log = LogManager.DefaultLogger;
-LogManager.autoLogMethodEntryExit(
-    { target: NST_MR_Auto_Query_Integration, method: /\w+/ },
-    {
-        withProfiling: true,
-        logLevel: LogManager.logLevel.debug
-    }
-)
+export const getInputData = NST_MR_Auto_Query_Integration.getInputData;
+export const map = NST_MR_Auto_Query_Integration.map;
+export const reduce = NST_MR_Auto_Query_Integration.reduce;
+export const summarize = NST_MR_Auto_Query_Integration.summarize;
 
 namespace NST_MR_Auto_Query_Integration {
+    const log = LogManager.DefaultLogger;
+    LogManager.autoLogMethodEntryExit(
+        { target: NST_MR_Auto_Query_Integration, method: /\w+/ },
+        {
+            withProfiling: true,
+            logLevel: LogManager.logLevel.debug
+        }
+    );
+
     interface QueryResult {
         id: number;
         foo: string;
@@ -77,10 +84,3 @@ namespace NST_MR_Auto_Query_Integration {
         });
     }
 }
-
-export = {
-    getInputData: NST_MR_Auto_Query_Integration.getInputData,
-    map: NST_MR_Auto_Query_Integration.map,
-    reduce: NST_MR_Auto_Query_Integration.reduce,
-    summarize: NST_MR_Auto_Query_Integration.summarize
-};

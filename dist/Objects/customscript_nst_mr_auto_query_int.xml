@@ -1,5 +1,5 @@
-<suitelet scriptid="customscript_nst_mr_auto_query_int">
-  <description>Suitelet as a map reduce testing script using query to object.</description>
+<mapreducescript scriptid="customscript_nst_mr_auto_query_int">
+  <description>Map reduce script testing script using query to object.</description>
   <isinactive>F</isinactive>
   <name>NST MR Auto Query Integration</name>
   <notifyadmins>F</notifyadmins>
@@ -22,4 +22,4 @@
       <title>NST MR Auto Query Integration Deploy 1</title>
     </scriptdeployment>
   </scriptdeployments>
-</suitelet>
+</mapreducescript>

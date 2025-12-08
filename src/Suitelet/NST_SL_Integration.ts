@@ -1,13 +1,15 @@
 /**
+ * @NApiVersion 2.1
+ * @NScriptType Suitelet
+ */
+
+/**
  * Suitelet to run integration tests for the NS Tools Framework
  * 
  * Copyright 2016-2025 Explore Consulting
  * Copyright 2025-Present NS Tools Team
  *
  * See LICENSE file for additional information.
- * 
- * @NApiVersion 2.1
- * @NScriptType Suitelet
  */
 
 import { search } from 'N';
@@ -29,7 +31,7 @@ import { LazySearch, nsSearchResult2obj } from '../Framework/search';
 import { Seq } from '../Framework/thirdparty/optional/immutable';
 import { LazyQuery, nsQueryResult2obj } from '../Framework/query';
 
-const log = Logger.DefaultLogger;
+export const onRequest: EntryPoints.Suitelet.onRequest = NST_SL_Integration.onRequest;
 
 /**
  * Suitelet to run integration tests for the NS Tools Framework
@@ -37,7 +39,16 @@ const log = Logger.DefaultLogger;
  * @TODO: Split the tests into separate modules/files for easier long term maintenance
  */
 namespace NST_SL_Integration {
-    export function onRequest(_context: EntryPoints.Suitelet.onRequestContext) {
+    export const log = Logger.DefaultLogger;
+    Logger.autoLogMethodEntryExit(
+        { target: NST_SL_Integration.tests, method: /\w+/ },
+        {
+            withGovernance: true,
+            withProfiling: true,
+        },
+    );
+
+    export function onRequest(context: EntryPoints.Suitelet.onRequestContext) {
         const results: string[] = [];
 
         for (const testName in tests) {
@@ -49,6 +60,8 @@ namespace NST_SL_Integration {
                 log.error(`Test ${testName} Failed`, (e as Error).message);
             }
         }
+
+        return context.response.write(results.join('\n\n'));
     }
 
     export const tests = {
@@ -260,13 +273,3 @@ namespace NST_SL_Integration {
         .toArray();
     }
 }
-
-Logger.autoLogMethodEntryExit(
-	{ target: NST_SL_Integration.tests, method: /\w+/ },
-	{
-		withGovernance: true,
-		withProfiling: true,
-	},
-);
-
-export const onRequest: EntryPoints.Suitelet.onRequest = NST_SL_Integration.onRequest;
