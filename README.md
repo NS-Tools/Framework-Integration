@@ -2,14 +2,35 @@
 
 NS Tools Integration is the integration project. This repository also doubles as a batteries included starter template for new projects. Take the guess work out of starting new projects!
 
+# Project Usage
+
+To use this repository you must setup your environment for communicating with SuiteCloud as outlined under the account setup steps below.
+
+## SuiteCloud Account Setup
+
+Note: For step five you'll need to know the account id (for Sandbox environments it'll usually be account number_sb1). Auth id is a friendly name given to the authentication, and is not predicated on anything configured within Netsuite.
+
+1. Set the SUITECLOUD_CI_PASSKEY variable in .devcontainer/devcontainer.json, I recommend running `dbus-uuidgen` to create a unique secure string
+2. If you did this from inside the devcontainer, you'll need to rebuild the container to pull in the new environment variable.
+3. Generate a RSA certificate for your environment. `mkdir cert && openssl req -new -x509 -newkey rsa:4096 -keyout cert/private.pem -sigopt rsa_padding_mode:pss -sha256 -sigopt rsa_pss_saltlen:64 -out cert/public.pem -nodes`
+4. Upload the certificate to Netsuite (Setup -> Integration -> Oauth Client Credentials (M2M) Setup), make sure you set the application as SuiteCloud Development Integration
+5. Run this command after replacing the variables ```
+    npx suitecloud account:setup:ci --account="$ACCOUNT_ID" \
+        --authid="$AUTH_ID" \
+        --certificateid="$CERTIFICATE_ID" \
+        --domain="$NETSUITE_URL" \
+        --privatekeypath="cert/private.pem"
+    ```
+
 # Integration Testing
 
 ## Running Integration Tests
 To run the integration tests perform the following
 1. Run `build-environment.sh` using the provided .env file
-2. Setup your suitecloud account `npx suitecloud account:setup`
-3. Run `npm run build:deploy`
-4. Run the Suitelet `NS Tools Integration Tests` (you can find the URL on the deployment page)
+2. Run `npm run build:deploy`
+3. Run the Suitelet `NS Tools Integration Tests` (you can find the URL on the deployment page)
+4. Run the MapReduce script `NS Tools Auto Search Integration`
+5. Run the MapReduce script `NS Tools Auto Query Integration`
 
 ## Reporting Issues
 Please report issues with the integration tests to the Framework repository https://github.com/NS-Tools/Framework

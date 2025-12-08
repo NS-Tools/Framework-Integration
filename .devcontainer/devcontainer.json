@@ -17,7 +17,9 @@
 		"--tmpfs=${containerWorkspaceFolder}/node_modules:exec"
 	],
 	"remoteEnv": {
-		"WORKSPACE_PATH": "${containerWorkspaceFolder}"
+		"WORKSPACE_PATH": "${containerWorkspaceFolder}",
+		"SUITECLOUD_CI": "1",
+		"SUITECLOUD_CI_PASSKEY": ""
 	},
 	"postStartCommand": "cd ${containerWorkspaceFolder} && .devcontainer/postStartCommand.sh",
 
