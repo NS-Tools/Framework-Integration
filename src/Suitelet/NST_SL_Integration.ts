@@ -3,15 +3,6 @@
  * @NScriptType Suitelet
  */
 
-/**
- * Suitelet to run integration tests for the NS Tools Framework
- * 
- * Copyright 2016-2025 Explore Consulting
- * Copyright 2025-Present NS Tools Team
- *
- * See LICENSE file for additional information.
- */
-
 import { search } from 'N';
 import type { EntryPoints } from 'N/types';
 import { CONSTANTS } from '../CONSTANTS';
@@ -31,7 +22,12 @@ import { LazySearch, nsSearchResult2obj } from '../Framework/search';
 import { Seq } from '../Framework/thirdparty/optional/immutable';
 import { LazyQuery, nsQueryResult2obj } from '../Framework/query';
 
-export const onRequest: EntryPoints.Suitelet.onRequest = NST_SL_Integration.onRequest;
+export = { onRequest: onRequest };
+
+function onRequest(context: EntryPoints.Suitelet.onRequestContext) {
+    NST_SL_Integration.registerLogger();
+    return NST_SL_Integration.onRequest(context);
+}
 
 /**
  * Suitelet to run integration tests for the NS Tools Framework
@@ -40,13 +36,16 @@ export const onRequest: EntryPoints.Suitelet.onRequest = NST_SL_Integration.onRe
  */
 namespace NST_SL_Integration {
     export const log = Logger.DefaultLogger;
-    Logger.autoLogMethodEntryExit(
-        { target: NST_SL_Integration.tests, method: /\w+/ },
-        {
-            withGovernance: true,
-            withProfiling: true,
-        },
-    );
+
+    export function registerLogger() {
+        Logger.autoLogMethodEntryExit(
+            { target: NST_SL_Integration.tests, method: /\w+/ },
+            {
+                withGovernance: true,
+                withProfiling: true,
+            },
+        );
+    }
 
     export function onRequest(context: EntryPoints.Suitelet.onRequestContext) {
         const results: string[] = [];
