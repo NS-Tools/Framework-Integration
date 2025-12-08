@@ -70,11 +70,12 @@ namespace NST_SL_Integration {
 		}
 
 		if (CONSTANTS.LOG_FOLDER_ID !== -1) {
+			// @TODO: Revamp the logging to capture more detailed logs rather than just test results
 			const f = file.create({
 				name: `NST_SL_Integration_Log_${new Date().toISOString()}.txt`,
 				folder: CONSTANTS.LOG_FOLDER_ID,
 				fileType: file.Type.PLAINTEXT,
-				contents: Logger.DefaultLogger.getLogContents(),
+				contents: results.join('\r\n'),
 			});
 			const fileId = f.save();
 
