@@ -8,19 +8,23 @@ To use this repository you must setup your environment for communicating with Su
 
 ### SuiteCloud Account Setup
 
+#### Dev Container M2M CI Setup
+
+Since the devcontainer does not have access to a secure storage mechanism, or the ability to open the browser. We need to run this project as a M2M CI integration for deployments. If you need to use browser authentication, the devcontainer will now work for you.
+
 Note: For step five you'll need to know the account id (for Sandbox environments it'll usually be account number_sb1). Auth id is a friendly name given to the authentication, and is not predicated on anything configured within Netsuite.
 
 1. Set the SUITECLOUD_CI_PASSKEY variable in .devcontainer/devcontainer.json, I recommend running `dbus-uuidgen` to create a unique secure string
 2. If you did this from inside the devcontainer, you'll need to rebuild the container to pull in the new environment variable.
 3. Generate a RSA certificate for your environment. `mkdir cert && openssl req -new -x509 -newkey rsa:4096 -keyout cert/private.pem -sigopt rsa_padding_mode:pss -sha256 -sigopt rsa_pss_saltlen:64 -out cert/public.pem -nodes`
 4. Upload the certificate to Netsuite (Setup -> Integration -> Oauth Client Credentials (M2M) Setup), make sure you set the application as SuiteCloud Development Integration
-5. Run this command after replacing the variables ```
+5. Run this command after replacing the variables
     npx suitecloud account:setup:ci --account="$ACCOUNT_ID" \
         --authid="$AUTH_ID" \
         --certificateid="$CERTIFICATE_ID" \
         --domain="$NETSUITE_URL" \
         --privatekeypath="cert/private.pem"
-    ```
+
 
 ## Integration Testing
 
@@ -36,7 +40,7 @@ To run the integration tests perform the following
 ## Reporting Issues
 Please report issues with the integration tests to the Framework repository https://github.com/NS-Tools/Framework
 
-If possible please setup NST_SL_Integration.ts's $DEBUG_FOLDER_ID with the internal id of a file cabinet folder, and upload the log file generated. 
+If possible please configure CONSTANTS.LOG_FOLDER_ID with the file cabinet folder id you would like to output logs to, and attach it to the issue.
 
 ## Template
 
@@ -75,7 +79,7 @@ See https://code.visualstudio.com/docs/devcontainers/
 
 The project structure is as follows.
 
-- __tests__: This directory holds your jest tests.
+- `__tests__`: This directory holds your jest tests.
 - .devcontainer: devcontainer configuration
 - dist: This is the SDF project directory. Everything is kept under git with the exception of dist/FileCabinet
 - src
@@ -90,6 +94,7 @@ The project structure is as follows.
 - .gitignore: Update this file with any file that you would like ignored.
 - .gitmodules: Git manages this file for track submodules
 - build-environment.sh: This file rolls the integration folder into a new project
+- build-environment.sh: This file builds the project environment.
 - build.sh: This file builds the project
 - jest.config.js: Jest configuration
 - package.json: NodeJS NPM configuration
