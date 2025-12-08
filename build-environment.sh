@@ -10,7 +10,6 @@ INCLUDE_OBJECTS=true
 INCLUDE_TRANSLATIONS=true
 INCLUDE_TEMPLATES=true
 INCLUDE_WEB_SITE_HOSTING_FILES=true
-INCLUDE_OPTIONAL_THIRD_PARTY=false
 KEEP_SRC_FILES=false
 
 OPTIONAL_THIRD_PARTY_BRANCH="production"
@@ -165,30 +164,6 @@ git checkout $FRAMEWORK_BRANCH
 cd ..
 git add Framework
 cd $CURRENT_DIR
-git submodule update --init --recursive
-
-if [ -d src/Framework/thirdparty/optional ]; then
-    cd $CURRENT_DIR
-
-    if [ ! $INCLUDE_OPTIONAL_THIRD_PARTY ]; then
-        echo "Removing optional third party repository"
-        git submodule deinit -f src/Framework/thirdparty/optional
-        git rm -f src/Framework/thirdparty/optional
-    else
-        echo "Updating thirdparty optional repository"
-        cd src/Framework/thirdparty/optional
-        git checkout $OPTIONAL_THIRD_PARTY_BRANCH
-        cd ..
-        git add optional
-        cd $CURRENT_DIR
-    fi
-else
-    # Optional tp directory doesn't exist
-    echo "Adding optional third party repository"
-    cd src/Framework/thirdparty
-    git submodule add -b $OPTIONAL_THIRD_PARTY_BRANCH $OPTIONAL_THIRD_PARTY_REPOSITORY optional
-    cd $CURRENT_DIR
-fi
 git submodule update --init --recursive
 
 # Make directories
