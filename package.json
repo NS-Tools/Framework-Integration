@@ -2,7 +2,7 @@
   "name": "ns-tools-integration",
   "version": "1.0.0",
   "devDependencies": {
-    "@biomejs/biome": "2.2.7",
+    "@biomejs/biome": "2.3.8",
     "@hitc/netsuite-types": "^2025.2.10",
     "@oracle/suitecloud-unit-testing": "^1.7.0",
     "@types/jest": "29.5.14",
@@ -11,14 +11,12 @@
     "typescript": "^5.9.3"
   },
   "scripts": {
-    "lint": "npx @biomejs/biome lint",
+    "lint": "npx @biomejs/biome check",
     "lint:fix": "npx @biomejs/biome check --write",
     "test": "jest",
     "build": "./build.sh",
     "build:deploy": "npm run build && npx suitecloud project:deploy --validate",
-    "thirdparty:setup": "git submodule add --force https://github.com/NS-Tools/ThirdParty.git thirdparty/optional",
-    "thirdparty:update": "git submodule update --remote --merge --recursive",
     "update": "git pull origin && npm run update:framework && npm install",
-    "update:framework": "git submodule update --remote --recursive"
+    "update:framework": "git submodule update --remote --recursive --merge"
   }
 }
