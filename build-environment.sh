@@ -110,14 +110,15 @@ echo "<manifest projecttype=\"ACCOUNTCUSTOMIZATION\">
   <frameworkversion>1.0</frameworkversion>
   <dependencies>
     <features>
-      <feature required="true">SERVERSIDESCRIPTING</feature>
+      <feature required=\"true\">SERVERSIDESCRIPTING</feature>
     </features>
   </dependencies>
 </manifest>" > dist/manifest.xml
 echo "Successfully built manifest.xml"
 
 echo "Building deploy.xml"
-echo "<deploy>" >> dist/deploy.xml
+touch dist/deploy.xml
+echo "<deploy>" > dist/deploy.xml
 if [ $INCLUDE_ACCOUNT_CONFIGURATION ]; then
     echo "    <configuration>
         <path>~/AccountConfiguration/*</path>
@@ -126,7 +127,7 @@ fi
 
 echo "    <files>
         <path>~/FileCabinet/*</path>
-    </files>" > dist/deploy.xml
+    </files>" >> dist/deploy.xml
 
 if [ $INCLUDE_OBJECTS ]; then
     echo "    <objects>
