@@ -6,6 +6,20 @@ NS Tools Integration is the integration project. This repository also doubles as
 
 To use this repository you must setup your environment for communicating with SuiteCloud as outlined under the account setup steps below.
 
+### NPM Commands
+
+You can run the following commands with `npm run {command}` (replace {command} with one of the options below.)
+
+- `lint` Runs biomejs on staged files
+- `lint:fix` Runs biomejs on staged files, and performs non dangerous fixes
+- `lint:all` Runs biomejs on all files
+- `lint:all:fix` Runs biomejs on all files, and performs non dangerous fixes
+- `build` Runs `build.sh` to compile your project
+- `build:deploy` Runs `build.sh`, and `npx suitecloud project:deploy --validate` to build and deploy your project
+- `test` Runs jest tests
+- `update` Pulls in the latest git changes, updates framework, and runs npm install
+- `update:framework` Pulls in the latest version of Framework
+
 ### SuiteCloud Account Setup
 
 #### Dev Container M2M CI Setup
