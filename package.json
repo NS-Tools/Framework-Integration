@@ -17,6 +17,6 @@
     "build": "./build.sh",
     "build:deploy": "npm run build && npx suitecloud project:deploy --validate",
     "update": "git pull origin && npm run update:framework && npm install",
-    "update:framework": "git submodule update --remote --recursive --merge"
+    "update:framework": "cd src/Framework && git pull && git submodule update --merge --recursive && cd ../../"
   }
 }
