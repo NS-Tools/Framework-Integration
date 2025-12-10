@@ -11,8 +11,10 @@
     "typescript": "^5.9.3"
   },
   "scripts": {
-    "lint": "npx @biomejs/biome check",
-    "lint:fix": "npx @biomejs/biome check --write",
+    "lint": "npx @biomejs/biome check --staged",
+    "lint:fix": "npx @biomejs/biome check --staged --write",
+    "lint:all": "npx @biomejs/biome check",
+    "lint:all:fix": "npx @biomejs/biome check --write",
     "test": "jest",
     "build": "./build.sh",
     "build:deploy": "npm run build && npx suitecloud project:deploy --validate",
