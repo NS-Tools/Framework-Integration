@@ -67,7 +67,7 @@ To use this project as your templatedo the following:
 
 #### Project Cloning
 To clone this project in a private repository do the following
-1. git clone git clone git@github.com:NS-Tools/Framework-Integration.git MyProject
+1. git clone git clone --depth=1 git@github.com:NS-Tools/Framework-Integration.git MyProject
 2. cd MyProject
 3. git remote remove origin
 4. git remote add origin {my project ssh repository}
