@@ -1,0 +1,23 @@
+# GitHub Actions workflow for processing repository on pull requests
+name: Process Repository on PR
+
+# Trigger on pull requests to the master and production branch
+on:
+  pull_request:
+    branches:
+      - master
+      - main
+      - production
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make script executable
+        run: chmod +x test-pr.sh
+
+      - name: Run test-pr.sh
+        run: ./test-pr.sh ${{ github.event.pull_request.head.repo.clone_url }} ${{ github.event.pull_request.head.ref }}
