@@ -32,7 +32,8 @@
 				"github.copilot",
 				"github.copilot-chat",
 				"oracle.suitecloud-vscode-extension",
-				"biomejs.biome"
+				"biomejs.biome",
+				"editorconfig.editorconfig"
 			]
 		}
 	},
