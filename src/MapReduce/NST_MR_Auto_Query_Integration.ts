@@ -15,8 +15,8 @@
 import { query } from 'N';
 import type { EntryPoints } from 'N/types';
 import { CONSTANTS } from '../CONSTANTS';
-import * as LogManager from '../Framework/utility/Logger';
 import { getColumns, mapQueryMRResults } from '../Framework/queryAutoMapper';
+import * as LogManager from '../Framework/utility/Logger';
 
 export = {
 	getInputData: NST_MR_Auto_Query_Integration.getInputData,

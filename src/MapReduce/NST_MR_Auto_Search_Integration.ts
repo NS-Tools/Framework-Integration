@@ -15,8 +15,8 @@
 import { search } from 'N';
 import type { EntryPoints } from 'N/types';
 import { CONSTANTS } from '../CONSTANTS';
-import * as LogManager from '../Framework/utility/Logger';
 import { LazySearch, nsSearchResult2obj } from '../Framework/search';
+import * as LogManager from '../Framework/utility/Logger';
 
 export = {
 	getInputData: NST_MR_Auto_Search_Integration.getInputData,

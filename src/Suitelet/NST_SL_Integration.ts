@@ -21,7 +21,6 @@ import { InventoryItemBase } from '../Framework/DataAccess/BaseRecords/Inventory
 import { InvoiceBase } from '../Framework/DataAccess/BaseRecords/InvoiceBase';
 import { ItemFulfillmentBase } from '../Framework/DataAccess/BaseRecords/ItemFulfillmentBase';
 import { SalesOrderBase } from '../Framework/DataAccess/BaseRecords/SalesOrderBase';
-import * as Logger from '../Framework/utility/Logger';
 import { LazyQuery, nsQueryResult2obj } from '../Framework/query';
 import { getColumns } from '../Framework/queryAutoMapper';
 import { LazySearch, nsSearchResult2obj } from '../Framework/search';
@@ -29,6 +28,7 @@ import * as BigNumber from '../Framework/thirdparty/optional/bignumber';
 import { Seq } from '../Framework/thirdparty/optional/immutable';
 import * as lodash from '../Framework/thirdparty/optional/lodash';
 import * as moment from '../Framework/thirdparty/optional/moment';
+import * as Logger from '../Framework/utility/Logger';
 import { CustomerWithAlias } from '../Records/CustomerWithAlias';
 
 export = { onRequest: onRequest };
