@@ -60,10 +60,18 @@ If possible please configure CONSTANTS.LOG_FOLDER_ID with the file cabinet folde
 
 ### Setup
 To use this project as your templatedo the following:
-1. Fork the project
+1. Fork the project for public projects, see cloning instructions below.
 2. Update .env
 3. Run `build-environment.sh`
 4. (Optional) Update README.md to match your project
+
+#### Project Cloning
+To clone this project in a private repository do the following
+1. git clone git clone git@github.com:NS-Tools/Framework-Integration.git MyProject
+2. cd MyProject
+3. git remote remove origin
+4. git remote add origin {my project ssh repository}
+5. git push origin main
 
 ### .env configuration
 #### Required variables
