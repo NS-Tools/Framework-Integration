@@ -15,7 +15,7 @@
 import { query } from 'N';
 import type { EntryPoints } from 'N/types';
 import { CONSTANTS } from '../CONSTANTS';
-import * as LogManager from '../Framework/Logger';
+import * as LogManager from '../Framework/utility/Logger';
 import { getColumns, mapQueryMRResults } from '../Framework/queryAutoMapper';
 
 export = {

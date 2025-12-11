@@ -21,7 +21,7 @@ import { InventoryItemBase } from '../Framework/DataAccess/BaseRecords/Inventory
 import { InvoiceBase } from '../Framework/DataAccess/BaseRecords/InvoiceBase';
 import { ItemFulfillmentBase } from '../Framework/DataAccess/BaseRecords/ItemFulfillmentBase';
 import { SalesOrderBase } from '../Framework/DataAccess/BaseRecords/SalesOrderBase';
-import * as Logger from '../Framework/Logger';
+import * as Logger from '../Framework/utility/Logger';
 import { LazyQuery, nsQueryResult2obj } from '../Framework/query';
 import { getColumns } from '../Framework/queryAutoMapper';
 import { LazySearch, nsSearchResult2obj } from '../Framework/search';
