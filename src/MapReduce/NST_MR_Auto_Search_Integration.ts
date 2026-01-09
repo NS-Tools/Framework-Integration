@@ -4,7 +4,7 @@
  */
 
 /**
- * Suitelet to run integration tests for the NS Tools Framework
+ * MR to run integration tests for the NS Tools Framework
  *
  * Copyright 2016-2025 Explore Consulting
  * Copyright 2025-Present NS Tools Team
@@ -16,6 +16,7 @@ import { search } from 'N';
 import type { EntryPoints } from 'N/types';
 import { CONSTANTS } from '../CONSTANTS';
 import { LazySearch, nsSearchResult2obj } from '../Framework/search';
+import * as papaparse from '../Framework/thirdparty/optional/papaparse';
 import * as LogManager from '../Framework/utility/Logger';
 
 export = {
@@ -64,9 +65,14 @@ namespace NST_MR_Auto_Search_Integration {
 
 	export function map(context: EntryPoints.MapReduce.mapContext) {
 		log.debug('Map Context Value', context.value);
+
+		context.write(context.key, papaparse.unparse(JSON.parse(context.value)));
 	}
 
-	export function reduce(_context: EntryPoints.MapReduce.reduceContext) {}
+	export function reduce(context: EntryPoints.MapReduce.reduceContext) {
+		log.debug('Reduce Context Key', context.key);
+		log.debug('Reduce Context Values', context.values);
+	}
 
 	export function summarize(context: EntryPoints.MapReduce.summarizeContext) {
 		log.debug('Map/Reduce Summary', {

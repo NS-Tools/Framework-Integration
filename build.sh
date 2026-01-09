@@ -1,13 +1,23 @@
+#!/bin/bash
+
+# Cleanup dist folder for builds
+rm -rf dist/FileCabinet/SuiteScripts/* \
+    dist/FileCabinet/SuiteScripts/.* 2> /dev/null || true
+
+# Build the typescript project
 tsc -b
 
-if [ -f .env ]; then
-    source .env
+# Source the environment file if available. Otherwise third party paths will not correctly resolve.
+if [ -f ${WORKSPACE_PATH}/.env ]; then
+    source ${WORKSPACE_PATH}/.env
 fi
 
+# Remove ts build file since SDF will error
 if [ -f dist/FileCabinet/tsconfig.tsbuildinfo ]; then
     rm dist/FileCabinet/tsconfig.tsbuildinfo
 fi
 
+# Remove ts build file since SDF will error
 if [ -f dist/FileCabinet/SuiteScripts/tsconfig.tsbuildinfo ]; then
     rm dist/FileCabinet/SuiteScripts/tsconfig.tsbuildinfo
 fi

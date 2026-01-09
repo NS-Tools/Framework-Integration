@@ -12,7 +12,7 @@
  * See LICENSE file for additional information.
  */
 
-import { file, search } from 'N';
+import { file, format, record, search } from 'N';
 import type { EntryPoints } from 'N/types';
 import { CONSTANTS } from '../CONSTANTS';
 import { AssemblyItemBase } from '../Framework/DataAccess/BaseRecords/AssemblyItemBase';
@@ -30,6 +30,7 @@ import * as lodash from '../Framework/thirdparty/optional/lodash';
 import * as moment from '../Framework/thirdparty/optional/moment';
 import * as Logger from '../Framework/utility/Logger';
 import { CustomerWithAlias } from '../Records/CustomerWithAlias';
+import { TestType } from '../Records/TestType';
 
 export = { onRequest: onRequest };
 
@@ -100,6 +101,7 @@ namespace NST_SL_Integration {
 		testSublists: testSublists,
 		testAliasDecorator: testAliasDecorator,
 		testLoadingItems: testLoadingItems,
+		testFieldTypes: testFieldTypes,
 
 		/* Optional third party library tests */
 		testLodash: testLodash,
@@ -293,5 +295,135 @@ namespace NST_SL_Integration {
 		)
 			.map(nsSearchResult2obj<{ foo: string }>())
 			.toArray();
+	}
+
+	function testFieldTypes() {
+		let record = getTestTypeRecord();
+
+		if (!record) {
+			record = new TestType(createTestTypeRecord());
+		}
+
+		record.custrecord_nst_test_type_checkbox = Math.random() <= 0.5;
+		record.custrecord_nst_test_type_currency = 654.32;
+		record.custrecord_nst_test_type_decimal = 654.321;
+		record.custrecord_nst_test_type_integer = 321;
+		record.custrecord_nst_test_type_percent = 0.25;
+		record.custrecord_nst_test_type_freeform_text = 'This is an updated test string.';
+		record.custrecord_nst_test_type_phone = format.format({
+			type: format.Type.PHONE,
+			value: '555-987-6543',
+		});
+		record.custrecord_nst_test_type_email = 'jane@doe.com';
+		record.custrecord_nst_test_type_customer_select = CONSTANTS.CUSTOMER_ID;
+		record.custrecord_nst_test_type_customer_multi = [CONSTANTS.CUSTOMER_ID, CONSTANTS.CUSTOMER_ID2];
+
+		const d = record.custrecord_nst_test_type_date;
+		log.debug('Original Date', `Date before modification: ${d.toISOString()}`);
+		d.setDate(d.getDate() + 1);
+		record.custrecord_nst_test_type_date = d;
+		log.debug('Modified Date', `Date after modification: ${record.custrecord_nst_test_type_date.toISOString()}`);
+
+		const d2 = record.custrecord_nst_test_type_datetime;
+		log.debug('Original DateTime', `DateTime before modification: ${d2.toISOString()}`);
+		d2.setHours(d2.getHours() + 1);
+		record.custrecord_nst_test_type_datetime = d2;
+		log.debug('Modified DateTime', `DateTime after modification: ${record.custrecord_nst_test_type_datetime.toISOString()}`);
+		
+		record.save();
+		return record.toJSON();
+	}
+
+	function getTestTypeRecord(): TestType | null {
+		const searchResult = search
+			.create({
+				type: TestType.recordType(),
+				filters: [],
+				columns: [],
+			})
+			.run()
+			.getRange({ start: 0, end: 1 });
+
+		if (searchResult.length > 0) {
+			return new TestType(searchResult[0].id);
+		}
+
+		return null;
+	}
+
+	function createTestTypeRecord(): number {
+		const testRecord = record.create({
+			type: TestType.recordType(),
+		});
+
+		testRecord.setValue({
+			fieldId: 'name',
+			value: 'NST Test Type Record',
+		})
+
+		testRecord.setValue({
+			fieldId: 'custrecord_nst_test_type_checkbox',
+			value: true,
+		});
+
+		testRecord.setValue({
+			fieldId: 'custrecord_nst_test_type_currency',
+			value: 1234.56,
+		});
+
+		testRecord.setValue({
+			fieldId: 'custrecord_nst_test_type_customer_select',
+			value: CONSTANTS.CUSTOMER_ID,
+		});
+
+		testRecord.setValue({
+			fieldId: 'custrecord_nst_test_type_customer_multi',
+			value: [CONSTANTS.CUSTOMER_ID],
+		});
+
+		testRecord.setValue({
+			fieldId: 'custrecord_nst_test_type_date',
+			value: new Date(),
+		});
+
+		testRecord.setValue({
+			fieldId: 'custrecord_nst_test_type_datetime',
+			value: new Date(),
+		});
+
+		testRecord.setValue({
+			fieldId: 'custrecord_nst_test_type_freeform_text',
+			value: 'This is a test string.',
+		});
+
+		testRecord.setValue({
+			fieldId: 'custrecord_nst_test_type_decimal',
+			value: 123.456,
+		});
+
+		testRecord.setValue({
+			fieldId: 'custrecord_nst_test_type_integer',
+			value: 123,
+		});
+
+		testRecord.setValue({
+			fieldId: 'custrecord_nst_test_type_percent',
+			value: 0.15,
+		});
+
+		testRecord.setValue({
+			fieldId: 'custrecord_nst_test_type_phone',
+			value: format.format({
+				type: format.Type.PHONE,
+				value: '555-123-4567',
+			}),
+		});
+
+		testRecord.setValue({
+			fieldId: 'custrecord_nst_test_type_email',
+			value: 'john@doe.com',
+		});
+
+		return testRecord.save();
 	}
 }

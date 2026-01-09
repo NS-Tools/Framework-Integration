@@ -111,6 +111,7 @@ echo "<manifest projecttype=\"ACCOUNTCUSTOMIZATION\">
   <dependencies>
     <features>
       <feature required=\"true\">SERVERSIDESCRIPTING</feature>
+      <feature required=\"true\">CUSTOMRECORDS</feature>
     </features>
   </dependencies>
 </manifest>" > dist/manifest.xml
